@@ -1,6 +1,7 @@
 # GitHub Release Bot
 > Monitor releases from GitHub and output them to a chat client like Discord
 
+
 ## Supported Output
 - Discord
 
