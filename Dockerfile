@@ -5,25 +5,19 @@ WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm install
 
-COPY .babelrc ./
 COPY src ./src
 COPY .env .env
 
 CMD ["npm", "run", "dev"]
-
-
-FROM dev AS build
-
-RUN npm run build
-
 
 FROM node:18-alpine AS prod
 
 WORKDIR /app
 
 COPY package.json package-lock.json ./
-RUN npm install --production
+RUN npm install
 
-COPY --from=build /app/build ./build
+COPY src ./src
+COPY .env .env
 
-CMD ["node", "build"]
+CMD ["npm", "run", "start"]
