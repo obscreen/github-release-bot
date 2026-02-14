@@ -9,10 +9,14 @@ const {
 } = process.env;
 
 (async () =>  {
+  console.log('Bot started');
+
   const { version: initialVersion } = await getLatestRelease();
 
+  console.log(`Latest version: ${initialVersion}`);
   store(initialVersion);
 
+  console.log(`Polling every ${RUN_INTERVAL_MS}ms`);
   setInterval(async () => {
     try {
       const {
@@ -23,6 +27,7 @@ const {
       const isDiff = !compare(version);
 
       if (isDiff) {
+        console.log(`New release detected: ${version}`);
         store(version);
         postToDiscord(
           createEmbedMessage({ version, ...rest })

@@ -17,7 +17,9 @@ WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm install
 
+COPY .babelrc .babelrc
 COPY src ./src
+RUN npm run build
 COPY .env .env
 
-CMD ["npm", "run", "start"]
+CMD ["node", "build"]

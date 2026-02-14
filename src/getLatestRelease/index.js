@@ -15,8 +15,12 @@ const GITHUB_RELEASE_URI = `repos/${GITHUB_REPO}/releases`;
  */
 export default async () => {
   try {
-    // parse response and then the resulting json
-    const response = await fetch(`${GITHUB_API_BASEURL}/${GITHUB_RELEASE_URI}`);
+    const url = `${GITHUB_API_BASEURL}/${GITHUB_RELEASE_URI}`;
+    console.log(`Fetching releases from ${url}`);
+
+    const response = await fetch(url);
+    console.log(`GitHub API response: ${response.status} ${response.statusText}`);
+
     const body = await response.json();
 
     // last release should be first entry in array
