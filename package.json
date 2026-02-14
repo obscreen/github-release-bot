@@ -5,6 +5,7 @@
   "license": "MIT",
   "scripts": {
     "test": "cross-env NODE_ENV=test mocha 'src/**/*.test.js'",
+    "dev": "nodemon --watch src --exec babel-node src",
     "start": "babel-node src",
     "start:forever": "forever start build",
     "build": "babel src --out-dir build"
@@ -25,6 +26,7 @@
     "cross-env": "^7.0.3",
     "expect": "^26.6.2",
     "mocha": "^8.3.1",
-    "nock": "^13.0.10"
+    "nock": "^13.0.10",
+    "nodemon": "^3.0.2"
   }
 }

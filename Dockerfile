@@ -1,21 +1,28 @@
-FROM node:18-alpine AS build
+FROM node:18-alpine AS dev
 
 WORKDIR /app
 
-COPY package.json yarn.lock ./
-RUN yarn install --frozen-lockfile
+COPY package.json package-lock.json ./
+RUN npm install
 
 COPY .babelrc ./
 COPY src ./src
-RUN yarn build
+COPY .env .env
+
+CMD ["npm", "run", "dev"]
 
 
-FROM node:18-alpine
+FROM dev AS build
+
+RUN npm run build
+
+
+FROM node:18-alpine AS prod
 
 WORKDIR /app
 
-COPY package.json yarn.lock ./
-RUN yarn install --frozen-lockfile --production && yarn cache clean
+COPY package.json package-lock.json ./
+RUN npm install --production
 
 COPY --from=build /app/build ./build
 
